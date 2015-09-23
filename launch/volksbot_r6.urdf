@@ -1,0 +1,233 @@
+<?xml version="1.0"?>
+
+<robot name="volksbot_r6">
+
+   <link name="base_footprint"/>
+
+   <link name="base_link">
+      <inertial>
+         <origin xyz="0 0 0.025" rpy="0 0 0"/>
+         <mass value="30"/>
+         <inertia ixx="0.5" iyy="1" izz="1.3" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+      <visual>
+         <geometry>
+            <box size="0.55 0.32 0.19"/>
+         </geometry>
+         <material name="Grey"/>
+      </visual>
+   </link>
+
+   <link name="front_laser_sick_mounting">
+      <inertial>
+         <mass value="4.5"/>
+         <inertia ixx="0.026" iyy="0.026" izz="0.018" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+      <visual>
+         <origin xyz="-0.05 0 0" rpy="0 0 0"/>
+         <geometry>
+            <box size="0.056 0.155 0.185"/>
+         </geometry>
+         <material name="White"/>
+      </visual>
+      <visual>
+         <origin xyz="0 0 0.06" rpy="0 0 0"/>
+         <geometry>
+            <box size="0.156 0.155 0.065"/>
+         </geometry>
+         <material name="White"/>
+      </visual>
+   </link>
+
+   <link name="front_laser_sick">
+      <visual>
+         <origin xyz="-0.015 0 0" rpy="0 0 0"/>
+         <geometry>
+            <cylinder radius="0.078" length="0.12"/>
+         </geometry>
+         <material name="Black"/>
+      </visual>
+   </link>
+
+   <link name="left_tread"/>
+
+   <link name="wheel_front_left">
+      <inertial>
+         <mass value=".75"/>
+         <inertia ixx="0.001197" iyy="0.001197" izz="0.001944" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+      <visual>
+         <geometry>
+            <cylinder radius="0.108" length="0.06"/>
+         </geometry>
+         <material name="Black"/>
+      </visual>
+   </link>
+
+   <link name="wheel_rear_left">
+      <inertial>
+         <mass value=".75"/>
+         <inertia ixx="0.001197" iyy="0.001197" izz="0.001944" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+      <visual>
+         <geometry>
+            <cylinder radius="0.108" length="0.06"/>
+         </geometry>
+         <material name="Black"/>
+      </visual>
+   </link>
+
+   <link name="right_tread"/>
+
+   <link name="wheel_front_right">
+      <inertial>
+         <mass value=".75"/>
+         <inertia ixx="0.001197" iyy="0.001197" izz="0.001944" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+      <visual>
+         <geometry>
+            <cylinder radius="0.108" length="0.06"/>
+         </geometry>
+         <material name="Black"/>
+      </visual>
+   </link>
+
+   <link name="wheel_rear_right">
+      <inertial>
+         <mass value=".75"/>
+         <inertia ixx="0.001197" iyy="0.001197" izz="0.001944" ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+      <visual>
+         <geometry>
+            <cylinder radius="0.108" length="0.06"/>
+         </geometry>
+         <material name="Black"/>
+      </visual>
+   </link>
+
+
+   <joint name="base" type="fixed">
+      <parent link="base_footprint"/>
+      <child link="base_link"/>
+      <origin xyz="0 0 0.145" rpy="0 0 0" />
+   </joint>
+
+   <joint name="base_to_laser_mounting" type="fixed">
+      <parent link="base_link"/>
+      <child link="front_laser_sick_mounting"/>
+      <origin xyz="0.373 0 0.002" rpy="0 0 0" />
+   </joint>
+
+   <joint name="laser" type="fixed">
+      <parent link="front_laser_sick_mounting"/>
+      <child link="front_laser_sick"/>
+      <origin xyz="0.015 0 -0.03" rpy="0 0 0" />
+   </joint>
+
+   <joint name="base_to_left_tread" type="fixed">
+      <parent link="base_link"/>
+      <child link="left_tread"/>
+      <origin xyz="0 0.22 -0.037" rpy="-1.571 0 0" />
+   </joint>
+
+   <joint name="wheels_left" type="continuous">
+      <parent link="left_tread"/>
+      <child link="wheel_front_left"/>
+      <origin xyz="0.23 0 0" rpy="0 0 0" />
+
+      <!--mimic joint="wheels_left_2"/-->
+      <axis xyz="0 0 1" />
+   </joint>
+
+   <joint name="wheels_left_2" type="continuous">
+      <parent link="left_tread"/>
+      <child link="wheel_rear_left"/>
+      <origin xyz="-0.23 0 0" rpy="0 0 0" />
+
+      <mimic joint="wheels_left"/>
+      <axis xyz="0 0 1" />
+   </joint>
+
+   <joint name="base_to_right_tread" type="fixed">
+      <parent link="base_link"/>
+      <child link="right_tread"/>
+      <origin xyz="0 -0.22 -0.037" rpy="1.571 0 0" />
+   </joint>
+
+   <joint name="wheels_right" type="continuous">
+      <parent link="right_tread"/>
+      <child link="wheel_front_right"/>
+      <origin xyz="0.23 0 0" rpy="0 0 0" />
+
+      <!--mimic joint="wheels_right_2"/-->
+      <axis xyz="0 0 1" />
+   </joint>
+
+   <joint name="wheels_right_2" type="continuous">
+      <parent link="right_tread"/>
+      <child link="wheel_rear_right"/>
+      <origin xyz="-0.23 0 0" rpy="0 0 0" />
+
+      <mimic joint="wheels_right"/>
+      <axis xyz="0 0 1" />
+   </joint>
+
+   <transmission name="left_transmission">
+     <type>transmission_interface/SimpleTransmission</type>
+     <joint name="wheels_left">
+       <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+     </joint>
+     <actuator name="left_epos2_actuator">
+       <mechanicalReduction>73.5</mechanicalReduction>
+     </actuator>
+   </transmission>
+
+   <transmission name="right_transmission">
+     <type>transmission_interface/SimpleTransmission</type>
+     <joint name="wheels_right">
+       <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+     </joint>
+     <actuator name="right_epos2_actuator">
+       <mechanicalReduction>73.5</mechanicalReduction>
+     </actuator>
+   </transmission>
+
+   <material name="White">
+      <color rgba="1.0 1.0 1.0 1.0"/>
+   </material>
+   <material name="Black">
+      <color rgba="0.0 0.0 0.0 1.0"/>
+   </material>
+   <material name="Grey">
+      <color rgba="0.7 0.7 0.7 1.0"/>
+   </material>
+
+</robot>
+
+<!--robot name="example">
+  <link name="link1">
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="1" iyy="1" izz="1" ixy="0" ixz="0" iyz="0"/>
+    </inertial>
+  </link>
+  <link name="link2">
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="1" iyy="1" izz="1" ixy="0" ixz="0" iyz="0"/>
+    </inertial>
+  </link>
+  <joint name="test_joint" type="revolute">
+    <parent link="link1"/>
+    <child link="link2"/>
+  </joint>
+  <transmission name="test_joint_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="test_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="left_epos2_actuator">
+      <mechanicalReduction>1000</mechanicalReduction>
+    </actuator>
+  </transmission>
+</robot-->
