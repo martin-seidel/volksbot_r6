@@ -1,5 +1,5 @@
 <launch>
-   
+
   <param name="robot_description" textfile="$(find volksbot_r6)/launch/volksbot_r6.urdf" />
 
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen"/>
@@ -13,5 +13,7 @@
 
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"	output="screen" args="odom_raw  velocity_left velocity_right"/>
    <rosparam command="load" file="$(find volksbot_r6)/config/controller.yaml" />
+
+   <node pkg="robot_movement_config" type="robot_movement" name="r6_movement" output="screen"/>
 
 </launch>
