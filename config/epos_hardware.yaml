@@ -55,11 +55,11 @@ right_epos2:
 
   safety:
     max_following_error: 20000
-    max_profile_velocity: 95
+    max_profile_velocity: 7000
     max_acceleration: 15000
 
   position_profile:
-    velocity: 95
+    velocity: 7000
     acceleration: 8000
     deceleration: 9000
 

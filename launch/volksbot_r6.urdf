@@ -144,7 +144,7 @@
       <origin xyz="0 0.22 -0.037" rpy="-1.571 0 0" />
    </joint>
 
-   <joint name="wheels_left" type="continuous">
+   <joint name="left_tread" type="continuous">
       <parent link="left_tread"/>
       <child link="wheel_front_left"/>
       <origin xyz="0.23 0 0" rpy="0 0 0" />
@@ -153,12 +153,12 @@
       <axis xyz="0 0 1" />
    </joint>
 
-   <joint name="wheels_left_2" type="continuous">
+   <joint name="left_tread_2" type="continuous">
       <parent link="left_tread"/>
       <child link="wheel_rear_left"/>
       <origin xyz="-0.23 0 0" rpy="0 0 0" />
 
-      <mimic joint="wheels_left"/>
+      <mimic joint="left_tread"/>
       <axis xyz="0 0 1" />
    </joint>
 
@@ -168,7 +168,7 @@
       <origin xyz="0 -0.22 -0.037" rpy="1.571 0 0" />
    </joint>
 
-   <joint name="wheels_right" type="continuous">
+   <joint name="right_tread" type="continuous">
       <parent link="right_tread"/>
       <child link="wheel_front_right"/>
       <origin xyz="0.23 0 0" rpy="0 0 0" />
@@ -177,18 +177,18 @@
       <axis xyz="0 0 1" />
    </joint>
 
-   <joint name="wheels_right_2" type="continuous">
+   <joint name="right_tread_2" type="continuous">
       <parent link="right_tread"/>
       <child link="wheel_rear_right"/>
       <origin xyz="-0.23 0 0" rpy="0 0 0" />
 
-      <mimic joint="wheels_right"/>
+      <mimic joint="right_tread"/>
       <axis xyz="0 0 1" />
    </joint>
 
    <transmission name="left_transmission">
      <type>transmission_interface/SimpleTransmission</type>
-     <joint name="wheels_left">
+     <joint name="left_tread">
        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
      </joint>
      <actuator name="left_epos2_actuator">
@@ -198,7 +198,7 @@
 
    <transmission name="right_transmission">
      <type>transmission_interface/SimpleTransmission</type>
-     <joint name="wheels_right">
+     <joint name="right_tread">
        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
      </joint>
      <actuator name="right_epos2_actuator">

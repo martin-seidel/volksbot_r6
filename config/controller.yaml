@@ -1,10 +1,10 @@
 velocity_left:
    type: 'velocity_controllers/JointVelocityController'
-   joint: 'wheels_left'
+   joint: 'left_tread'
 
 velocity_right:
    type: 'velocity_controllers/JointVelocityController'
-   joint: 'wheels_right'
+   joint: 'right_tread'
 
 position_left: #2015.09.23 not working: "hardware_interface::PositionJointInterface' is not registered in the hardware_interface::RobotHW class"
    type: 'position_controllers/JointPositionController'

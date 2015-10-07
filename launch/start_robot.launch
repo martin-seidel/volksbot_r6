@@ -4,7 +4,7 @@
 
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen"/>
 
-  <node pkg="tf" type="static_transform_publisher" name="robot_in_world_temp" args="0.2 2.0 0 0 0 0 world base_footprint 200" />
+  <node pkg="tf" type="static_transform_publisher" name="robot_in_world_temp" args="0.2 2.0 0 0 0 0 world odom 200" />
 
   <node pkg="epos_hardware" type="epos_hardware_node" name="epos_hardware" args="left_epos2 right_epos2" output="screen">
     <rosparam command="load" file="$(find volksbot_r6)/config/epos_hardware.yaml" />
@@ -15,5 +15,24 @@
    <rosparam command="load" file="$(find volksbot_r6)/config/controller.yaml" />
 
    <node pkg="robot_movement_config" type="robot_movement" name="r6_movement" output="screen"/>
+
+   <node pkg="joy" type="joy_node" name="joy_node">
+      <param name="dev" value="/dev/input/js1" />
+      <!--param name="deadzone" value="0.3" />
+      <param name="autorepeat_rate" value="20" /-->
+   </node>
+
+   <node pkg="teleop_twist_joy" name="teleop_twist_joy" type="teleop_node">
+      <rosparam>
+         axis_linear: 1
+         scale_linear: 0.5
+         scale_linear_turbo: 1.0
+         axis_angular: 2
+         scale_angular: 2.0
+         scale_angular_turbo: 4.0
+         enable_button: 7
+         enable_turbo_button: 6
+      </rosparam>
+   </node>
 
 </launch>
